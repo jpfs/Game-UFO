@@ -82,7 +82,7 @@ const play = new GameBasics(canvas);
 play.start();
 
 function gameLoop(play) {
-  let presentPosition = play.presentPosition;
+  let presentPosition = play.presentPosition();
 
   if (presentPosition) {
     //update

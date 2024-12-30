@@ -1,10 +1,11 @@
+const ctx = document.getElementById("ufoCanvas").getContext("2d");
 // PositionOpening//
 function OpeningPosition() {}
 
 OpeningPosition.prototype.draw = function (play) {
   //UFO Hunter
   ctx.clearRect(0, 0, play.width, play.height);
-  ct1.font = "80px Comic Sans Ms";
+  ctx.font = "80px Comic Sans Ms";
   ctx.textAlign = "center";
   const gradient = ctx.createLinearGradient(
     play.width / 2 - 180,
