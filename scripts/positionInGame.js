@@ -52,6 +52,12 @@ InGamePosition.prototype.entry = function (play) {
         }
     }
     this.ufos = ufosInitial;
+
+    // temp
+    this.ufos.splice(31, 1);  
+    this.ufos.splice(24, 1); 
+    console.log(this.ufos);
+    this.temp = 0;
 }
 
 InGamePosition.prototype.update = function (play) {
@@ -118,6 +124,22 @@ InGamePosition.prototype.update = function (play) {
             this.ufoPresentSinkingValue = 0;
         }
     }
+
+    // UFOS bombing 
+    // Sorting UFOS - which are at the bottom of each column
+    const frontLineUFOs = [];
+    for (let i = 0; i < this.ufos.length; i++) {
+        let ufo = this.ufos[i];
+        if (!frontLineUFOs[ufo.column] || frontLineUFOs[ufo.column].line < ufo.line) {
+            frontLineUFOs[ufo.column] = ufo;
+        }
+    }
+
+    // temp
+    if(this.temp<1){ 
+        console.log(frontLineUFOs);
+        this.temp++;
+        }
 }
 
 InGamePosition.prototype.draw = function (play) {
