@@ -149,3 +149,6 @@ window.addEventListener("keyup", function (e) {
 const play = new GameBasics(canvas);
 play.start();
 
+
+
+

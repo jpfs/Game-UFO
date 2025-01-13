@@ -84,7 +84,7 @@ InGamePosition.prototype.update = function (play) {
         spaceship.x = play.playBoundaries.right;
     }
 
-    //  Moving bullets
+    // Moving bullets
     for (let i = 0; i < bullets.length; i++) {
         let bullet = bullets[i];
         bullet.y -= upSec * this.setting.bulletSpeed;
@@ -153,6 +153,26 @@ InGamePosition.prototype.update = function (play) {
         // If a bomb falls out of the canvas it will be deleted
         if (bomb.y > this.height) {
             this.bombs.splice(i--, 1);
+        }
+    }
+
+    // UFO-bullet collision
+    for (let i = 0; i < this.ufos.length; i++) {
+        let ufo = this.ufos[i];
+        let collision = false;
+        for (let j = 0; j < bullets.length; j++) {
+            let bullet = bullets[j];
+            // collision check
+            if (bullet.x >= (ufo.x - ufo.width / 2) && bullet.x <= (ufo.x + ufo.width / 2) &&
+                bullet.y >= (ufo.y - ufo.height / 2) && bullet.y <= (ufo.y + ufo.height / 2)) {
+                // if there is collision we delete the bullet and set collision true
+                bullets.splice(j--, 1);
+                collision = true;
+            }
+        }
+        // if there is collision we delete the UFO
+        if (collision == true) {
+            this.ufos.splice(i--, 1);
         }
     }
 }
