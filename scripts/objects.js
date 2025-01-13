@@ -19,7 +19,7 @@ Objects.prototype.bullet = function(x, y) {
 	return this;
 };
 
-Objects.prototype.ufo = function(x, y, line, column, ufo_image) {
+Objects.prototype.ufo = function(x, y, line, column, ufo_image, level) {
     this.x = x;
     this.y = y;
     this.line = line;
@@ -27,7 +27,9 @@ Objects.prototype.ufo = function(x, y, line, column, ufo_image) {
     this.width = 32;  
     this.height = 24;  
 	this.ufo_image = ufo_image;  
-	this.ufo_image.src = "images/ufo.png"		 
+	this.level = level;
+	//this.ufo_image.src = "images/ufo.png"		 
+	this.ufo_image.src = (this.level%2==0) ? "images/ufo2.png" : "images/ufo.png"; //even-odd level selector
 	return this;	
 };
 
