@@ -33,7 +33,7 @@ InGamePosition.prototype.entry = function (play) {
     // Creating Spaceship
     this.spaceshipSpeed = this.setting.spaceshipSpeed;
     this.object = new Objects();
-    this.spaceship = this.spaceship = this.object.spaceship((play.width / 2), play.playBoundaries.bottom, this.spaceship_image);
+    this.spaceship = this.object.spaceship((play.width / 2), play.playBoundaries.bottom, this.spaceship_image);
 
     // Creating UFOS
     const lines = this.setting.ufoLines;
@@ -143,7 +143,16 @@ InGamePosition.prototype.update = function (play) {
         if (chance > Math.random()) {
             // make a bomb object and put it into bombs array	
             this.bombs.push(this.object.bomb(ufo.x, ufo.y + ufo.height / 2));
-            console.log("UFO (column:"+ ufo.column + ", line:" + ufo.line +") is bombing!");
+        }
+    }
+
+    // Moving bombs
+    for (let i = 0; i < this.bombs.length; i++) {
+        let bomb = this.bombs[i];
+        bomb.y += upSec * this.bombSpeed;
+        // If a bomb falls out of the canvas it will be deleted
+        if (bomb.y > this.height) {
+            this.bombs.splice(i--, 1);
         }
     }
 }
@@ -164,6 +173,13 @@ InGamePosition.prototype.draw = function (play) {
     for (let i = 0; i < this.ufos.length; i++) {
         let ufo = this.ufos[i];
         ctx.drawImage(this.ufo_image, ufo.x - (ufo.width / 2), ufo.y - (ufo.height / 2));
+    }
+
+    // draw bombs
+    ctx.fillStyle = "#FE2EF7";  
+    for (let i = 0; i < this.bombs.length; i++) {
+        let bomb = this.bombs[i];
+        ctx.fillRect(bomb.x - 2, bomb.y, 4, 6);
     }
 }
 
